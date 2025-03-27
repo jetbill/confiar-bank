@@ -9,6 +9,7 @@ import co.com.confiar.bank_demo.model.entity.Transaction;
 import co.com.confiar.bank_demo.model.entity.TransactionType;
 import co.com.confiar.bank_demo.model.exception.AccountNotFoundException;
 import co.com.confiar.bank_demo.model.exception.InsufficientFundsException;
+import co.com.confiar.bank_demo.model.exception.InvalidTransaction;
 import co.com.confiar.bank_demo.repository.AccountRepository;
 import co.com.confiar.bank_demo.repository.TransactionRepository;
 import co.com.confiar.bank_demo.service.TransactionService;
@@ -29,12 +30,11 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public TransactionResponseDTO createTransaction(CreateTransactionDTO trnDto) {
-
-        return accountRepository.findById(trnDto.accountId())
+    public TransactionResponseDTO createTransaction(CreateTransactionDTO trnDto, long accountId) {
+        return accountRepository.findById(accountId)
                 .map(account -> validateAndProcessTransaction(account, trnDto.type(), trnDto.amount()))
                 .map(account -> saveTransactionAndUpdateBalance(account, trnDto.type(), trnDto.amount()))
-                .orElseThrow(() -> new AccountNotFoundException("Account not found with ID: " + trnDto.accountId()));
+                .orElseThrow(() -> new AccountNotFoundException("Account not found with ID: " + accountId));
     }
 
     private Account validateAndProcessTransaction(Account account,
@@ -46,7 +46,7 @@ public class TransactionServiceImpl implements TransactionService {
         return switch (type) {
             case DEBIT -> validateDebit(account, amount);
             case CREDIT -> updateCredit(account, amount);
-            default -> throw new IllegalArgumentException("Invalid transaction type");
+            default -> throw new InvalidTransaction("Invalid transaction type");
         };
     }
 
@@ -74,7 +74,6 @@ public class TransactionServiceImpl implements TransactionService {
                 .transactionType(type)
                 .transactionDate(LocalDateTime.now())
                 .build();
-
         accountRepository.save(account);
         return TransactionMapper.toTransactionResponseDTO(transactionRepository.save(transaction));
     }

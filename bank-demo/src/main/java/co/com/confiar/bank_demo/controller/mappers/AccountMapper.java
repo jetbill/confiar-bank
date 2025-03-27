@@ -13,17 +13,16 @@ import java.util.List;
 
 
 public class AccountMapper {
-    public static Account toAccount(CreateAccountDTO request){
-        if(request == null) return null;
-        return  Account.builder()
-                .accountNumber(request.accountNumber())
-                .balance(BigDecimal.ZERO)
-                .build();
+//    public static Account toAccount(CreateAccountDTO request){
+//        if(request == null) return null;
+//        return  Account.builder()
+//                .accountNumber(request.accountNumber())
+//                .balance(BigDecimal.ZERO)
+//                .build();
+//
+//    }
 
-    }
-
-    //List<Account> toAccountList(List<CreateAccountDTO> request);
-    public static AccountResponseDTO toAccountResponseDTO(Account account){
+     public static AccountResponseDTO toAccountResponseDTO(Account account){
         if(account == null) return null;
         return new AccountResponseDTO(OperationCode.CREATED_ACCOUNT_CODE.getDescription(),
                 OperationCode.CREATED_ACCOUNT_MESSAGE.getDescription(),

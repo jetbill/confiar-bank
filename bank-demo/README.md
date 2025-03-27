@@ -1,3 +1,10 @@
+Clonar el repositorio:
+https://github.com/jetbill/confiar-bank.git
+importar el proyecto a IntellijIDEA
+abrir una terminal en la raiz del proyecto y ejecutar el comando docker compose up -d
+para iniciar el container de Mysql. Lanzar el proyecto e importar la coleccion bank-demo en Postman.
+
+
 
 Entidades:
 
@@ -35,8 +42,8 @@ Endpoints principales:
 
 1. POST: /api/v1/clients Crear cliente
 2. GET: /api/v1/clients/{nit} Consultar cliente por NIT
-3. POST /api/v1/accounts/{nit}: Crear cuenta de ahorros
-4. POST /api/v1/transacctions/{accountid}: Realizar movimiento
+3. POST /api/v1/accounts: Crear cuenta de ahorros
+4. POST /api/v1/transactions/{accountid}: Realizar movimiento
 
 Consideraciones adicionales:
 
@@ -44,4 +51,8 @@ Consideraciones adicionales:
 * Se implementa una arquitectura por capas
 * Se usan relaciones JPA entre entidades
 * Se manejan transacciones con @Transactional
+* Se utlizan DTOS para enviar objetos a las diferentes capas
+* Se hace validacion de objetos de entrada
+* Se capturan excepciones basicas
+* Pruebas unitarias para los Servicios
 

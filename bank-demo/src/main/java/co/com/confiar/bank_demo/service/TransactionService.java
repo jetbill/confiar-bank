@@ -7,5 +7,5 @@ import co.com.confiar.bank_demo.model.entity.TransactionType;
 import java.math.BigDecimal;
 
 public interface TransactionService {
-    TransactionResponseDTO createTransaction(CreateTransactionDTO createTransactionDTO);
+    TransactionResponseDTO createTransaction(CreateTransactionDTO createTransactionDTO, long accountId);
 }

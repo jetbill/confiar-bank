@@ -6,9 +6,9 @@ import jakarta.validation.constraints.Size;
 
 
 
-public record CreateAccountDTO(@Size(max = 10, message = "{generic.size}")
+public record CreateAccountDTO(@Size(max = 10, message = "The NIT exceeded 10 characters")
                                String clientNit,
-                               @Pattern(regexp = "^\\d{1,10}$", message = "{saveAccount.number.pattern}")
+                               @Pattern(regexp = "^\\d{1,10}$", message = "the Account exceeded 10 characters")
                                String accountNumber
                                ) {
 }

@@ -6,6 +6,6 @@ import java.math.BigDecimal;
 
 public record TransactionResponseDTO(String code,
                                      String message,
-                                     BigDecimal balance,
+                                     BigDecimal amount,
                                      TransactionType type){
 }
